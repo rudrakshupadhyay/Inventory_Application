@@ -1,0 +1,103 @@
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+* {
+  margin: 0;
+}
+
+/* Improve typography */
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-color: #f4f6f9;
+}
+
+/* Make media responsive */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form elements inherit font */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Prevent text overflow */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Remove list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove link underline (optional) */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 50px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.addBookForm {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 50%;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+.form-group > label {
+  font-weight: 900;
+}
+
+.page-title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.btnAddBook {
+  background-color: #1f2937;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}

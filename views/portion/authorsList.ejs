@@ -1,0 +1,8 @@
+<label for="authors">Authors:</label>
+<select name="authors" id="authors" >
+    <% authors.forEach(author => { %>
+        <option value="<%= author.id %>">
+            <%= author.first_name %> <%= author.last_name %>
+        </option>
+    <% }) %>
+</select>

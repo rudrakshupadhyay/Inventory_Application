@@ -1,0 +1,8 @@
+<label for="publisher">Publisher:</label>
+<select name="publisher" id="publisher" required>
+    <% publishers.forEach(publisher => { %>
+        <option value="<%= publisher.id %>">
+            <%= publisher.name %>
+        </option>
+    <% }) %>
+</select>
