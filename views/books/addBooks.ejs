@@ -10,7 +10,7 @@
     <%- include("../portion/header.ejs") %>
     <div class="container">
       <h1 class="page-title">ADD THE BOOK</h1>
-
+      <%- include("../portion/errors") %>
       <form action="/books/add" method="post" class="addBookForm">
         <div class="form-group">
           <label for="title">Title:</label>
@@ -64,7 +64,7 @@
             id="quantity"
             name="quantity"
             placeholder="e.g., 5"
-            min="1"
+            min="0"
             step="1"
           />
         </div>
