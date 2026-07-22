@@ -6,6 +6,11 @@ import {
   checkISBMisUnique,
   insertIntoBookDB,
 } from "../models/queries.js";
+
+import { categoriesById } from "../models/categoriesQueries.js";
+import { publisherById } from "../models/publisherQueries.js";
+import { authorById } from "../models/authorQueries.js";
+
 import { body, validationResult, matchedData } from "express-validator";
 
 const validateBook = [
@@ -122,4 +127,18 @@ const addBookIndb = [
   },
 ];
 
-export { openAddBook, addBookIndb };
+async function showBookList(req, res) {
+  const booksList = await getAllBooks();
+
+  await Promise.all(
+    booksList.map(async (book) => {
+      book.categoryName = await categoriesById(book.category_id);
+      book.authorName = await authorById(book.author_id);
+      book.publisherName = await publisherById(book.publisher_id);
+    }),
+  );
+  console.log(booksList);
+  res.render("./books/bookList.ejs", { booksList });
+}
+
+export { openAddBook, addBookIndb, showBookList };
