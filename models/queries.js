@@ -55,18 +55,77 @@ async function insertIntoBookDB(book) {
   );
 }
 
-async function checkISBMisUnique(value) {
-  const result = await pool.query("SELECT id FROM books WHERE isbn = $1", [
-    value,
-  ]);
-
+async function checkISBMisUnique(isbn, bookId) {
+  let result;
+  if (bookId) {
+    result = await pool.query(
+      `
+      SELECT id
+      FROM books
+      WHERE isbn = $1
+        AND id != $2
+      `,
+      [isbn, bookId],
+    );
+  } else {
+    result = await pool.query(
+      `
+      SELECT id
+      FROM books
+      WHERE isbn = $1
+      `,
+      [isbn],
+    );
+  }
   if (result.rows.length > 0) {
     throw new Error("ISBN already exists.");
   }
-
   return true;
 }
 
+async function deleteFromBooksdb(value) {
+  await pool.query("DELETE FROM books WHERE id = $1", [value]);
+}
+
+async function getBookByIdFromdb(value) {
+  const { rows } = await pool.query("SELECT * FROM books WHERE id = $1", [
+    value,
+  ]);
+  return rows[0];
+}
+
+async function updateBookInDb(id, book) {
+  await pool.query(
+    `
+    UPDATE books
+    SET
+      title = $1,
+      isbn = $2,
+      language = $3,
+      edition = $4,
+      price = $5,
+      quantity = $6,
+      description = $7,
+      category_id = $8,
+      author_id = $9,
+      publisher_id = $10
+    WHERE id = $11
+    `,
+    [
+      book.title,
+      book.isbn,
+      book.language,
+      book.edition,
+      book.price,
+      book.quantity,
+      book.description,
+      book.category,
+      book.author,
+      book.publisher,
+      id,
+    ],
+  );
+}
 
 export {
   getAllAuthors,
@@ -75,4 +134,7 @@ export {
   getAllpublishers,
   checkISBMisUnique,
   insertIntoBookDB,
+  deleteFromBooksdb,
+  getBookByIdFromdb,
+  updateBookInDb,
 };

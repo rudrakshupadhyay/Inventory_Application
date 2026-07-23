@@ -5,6 +5,9 @@ import {
   getAllpublishers,
   checkISBMisUnique,
   insertIntoBookDB,
+  deleteFromBooksdb,
+  getBookByIdFromdb,
+  updateBookInDb,
 } from "../models/queries.js";
 
 import { categoriesById } from "../models/categoriesQueries.js";
@@ -29,7 +32,9 @@ const validateBook = [
     .withMessage("ISBN is required.")
     .isISBN()
     .withMessage("Please enter a valid ISBN.")
-    .custom(checkISBMisUnique),
+    .custom(async (isbn, { req }) => {
+      return await checkISBMisUnique(isbn, req.params.id);
+    }),
   // Language
   body("language")
     .optional({ checkFalsy: true })
@@ -94,7 +99,14 @@ async function openAddBook(req, res) {
   const categories = await getAllCategories();
   const authors = await getAllAuthors();
   const publishers = await getAllpublishers();
-  res.render("books/addBooks", { categories, authors, publishers });
+  const title = "ADD THE BOOK";
+  res.render("books/addBooks", {
+    title,
+    categories,
+    authors,
+    publishers,
+    book: null,
+  });
 }
 
 const addBookIndb = [
@@ -110,19 +122,24 @@ const addBookIndb = [
       const categories = await getAllCategories();
       const authors = await getAllAuthors();
       const publishers = await getAllpublishers();
+      const isEdit = Boolean(req.params.id);
+      const title = isEdit ? "EDIT THE BOOK" : "ADD THE BOOK";
       return res.status(400).render("./books/addBooks", {
+        title,
         errors: errors.array(),
-        data: req.body, // Optional: preserve entered values
         categories,
         authors,
         publishers,
+        book: req.body,
       });
     }
 
     const book = matchedData(req);
-
-    await insertIntoBookDB(book);
-
+    if (req.params.id) {
+      await updateBookInDb(req.params.id, book);
+    } else {
+      await insertIntoBookDB(book);
+    }
     res.redirect("/");
   },
 ];
@@ -137,8 +154,29 @@ async function showBookList(req, res) {
       book.publisherName = await publisherById(book.publisher_id);
     }),
   );
-  console.log(booksList);
   res.render("./books/bookList.ejs", { booksList });
 }
 
-export { openAddBook, addBookIndb, showBookList };
+async function deleteBookById(req, res) {
+  const { id } = req.params;
+  await deleteFromBooksdb(id);
+  res.redirect("/books");
+}
+
+async function openEditPage(req, res) {
+  const { id } = req.params;
+  const categories = await getAllCategories();
+  const authors = await getAllAuthors();
+  const publishers = await getAllpublishers();
+  const book = await getBookByIdFromdb(id);
+  console.log(book);
+  const title = "EDIT THE BOOK";
+  res.render("books/addBooks", {
+    title,
+    categories,
+    authors,
+    publishers,
+    book,
+  });
+}
+export { openAddBook, addBookIndb, showBookList, deleteBookById, openEditPage };

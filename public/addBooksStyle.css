@@ -64,7 +64,7 @@ a {
   height: 100vh;
   padding: 50px;
   gap: 10px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 .addBookForm {

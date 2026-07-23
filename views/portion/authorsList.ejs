@@ -1,8 +1,11 @@
-<label for="authors">Authors:</label>
-<select name="author" id="authors" >
-    <% authors.forEach(author => { %>
-        <option value="<%= author.id %>">
-            <%= author.first_name %> <%= author.last_name %>
-        </option>
-    <% }) %>
+<label for="authors">Author:</label>
+
+<select name="author" id="authors" required>
+  <% authors.forEach(author => { %>
+    <option
+      value="<%= author.id %>"
+      <%= Number(book?.author_id || book?.author) === author.id ? "selected" : "" %>>
+      <%= author.first_name %> <%= author.last_name %>
+    </option>
+  <% }) %>
 </select>

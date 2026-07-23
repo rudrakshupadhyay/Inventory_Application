@@ -1,8 +1,11 @@
 <label for="category">Category:</label>
+
 <select name="category" id="category" required>
-    <% categories.forEach(category => { %>
-        <option value="<%= category.id %>">
-            <%= category.name %>
-        </option>
-    <% }) %>
+  <% categories.forEach(category => { %>
+    <option
+      value="<%= category.id %>"
+      <%= Number(book?.category_id || book?.category) === category.id ? "selected" : "" %>>
+      <%= category.name %>
+    </option>
+  <% }) %>
 </select>

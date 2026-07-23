@@ -1,5 +1,6 @@
 import express from "express";
 import path from "node:path";
+import methodOverride from "method-override";
 import authorRouter from "./routes/authors.js";
 import bookRouter from "./routes/books.js";
 import categoryRouter from "./routes/categories.js";
@@ -13,6 +14,7 @@ app.set("view engine", "ejs");
 const assetPath = path.join(import.meta.dirname, "public");
 app.use(express.static(assetPath));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
   res.render("home");

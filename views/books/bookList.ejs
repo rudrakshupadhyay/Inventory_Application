@@ -39,6 +39,12 @@
                 <td><%= book.categoryName.name %></td>
                 <td><%= book.authorName.first_name %> <%= book.authorName.last_name %></td>
                 <td><%= book.publisherName.name %></td>
+                <td class="action"><a href="/books/<%= book.id %>/edit" class="editbtn">Edit</a></td>
+                <td class="action">
+                  <form action="/books/<%= book.id %>?_method=DELETE" method="post">
+                    <button type="submit" class="deletebtn">Delete</button>
+                  </form>
+                </td>
             </tr>
         <% }) %>
       </table>

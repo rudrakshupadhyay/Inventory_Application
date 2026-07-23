@@ -75,3 +75,21 @@ a {
 table {
   background-color: #ffffff;
 }
+
+.action {
+  border: none;
+}
+
+.editbtn {
+  color: #ffffff;
+  background-color: green;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.deletebtn {
+  color: #ffffff;
+  background-color: red;
+  border: none;
+  padding: 7px 10px;
+  border-radius: 10px;
+}
