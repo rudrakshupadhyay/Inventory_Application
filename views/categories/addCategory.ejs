@@ -11,7 +11,7 @@
     <h1 class="page-title"><%= title %></h1>
     <div class="container">
       <%- include("../portion/errors") %>
-      <form action="<%= category ? `/categories/${category.id}/edit` : '/categories/add' %>" method="post" class="addBookForm">
+      <form action="<%= isEdit ? `/categories/${category.id}/edit` : '/categories/add' %>" method="post" class="addBookForm">
         <div class="form-group">
           <label for="title">Name:</label>
           <input

@@ -48,6 +48,7 @@ export const addAuthorsIndb = [
     const title = isEdit ? "EDIT THE Author" : "ADD THE Author";
     if (!errors.isEmpty()) {
       return res.status(400).render("./authors/addAuthors", {
+        isEdit: false,
         title,
         errors: errors.array(),
         author: req.body, // Optional: preserve entered values
@@ -80,6 +81,7 @@ export async function openEditPageOfAuthor(req, res) {
   const author = await authorById(id);
   const title = "EDIT THE Author";
   res.render("authors/addAuthors", {
+    isEdit: true,
     title,
     author,
   });

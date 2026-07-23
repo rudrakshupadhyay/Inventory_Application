@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Publishers</title>
+    <link rel="stylesheet" href="/addBooksStyle.css" />
+  </head>
+  <body>
+    <%- include("../portion/header.ejs") %>
+    <h1 class="page-title"><%= title %></h1>
+    <div class="container">
+      <%- include("../portion/errors") %>
+      <form
+        action="<%= isEdit ? `/publishers/${publisher.id}/edit` : '/publishers/add' %>"
+        method="post"
+        class="addBookForm"
+      >
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Enter the Name"
+            value="<%= publisher ? publisher.name : '' %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="country">Country:</label>
+          <input
+            type="text"
+            name="country"
+            id="country"
+            placeholder="Enter the Country"
+            value="<%= publisher ? publisher.country : '' %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="website">Website:</label>
+          <input
+            type="text"
+            name="website"
+            id="website"
+            placeholder="Enter the Website"
+            value="<%= publisher ? publisher.website : '' %>"
+          />
+        </div>
+        <button type="submit" class="btnAddBook">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

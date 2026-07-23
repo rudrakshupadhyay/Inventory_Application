@@ -11,7 +11,7 @@
     <h1 class="page-title"><%= title %></h1>
     <div class="container">
       <%- include("../portion/errors") %>
-      <form action="<%= author ? `/authors/${author.id}/edit` : '/authors/add' %>" method="post" class="addBookForm">
+      <form action="<%= isEdit ? `/authors/${author.id}/edit` : '/authors/add' %>" method="post" class="addBookForm">
         <div class="form-group">
           <label for="title">First Name:</label>
           <input

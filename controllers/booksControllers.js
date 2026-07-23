@@ -106,6 +106,7 @@ async function openAddBook(req, res) {
     authors,
     publishers,
     book: null,
+    isEdit: false,
   });
 }
 
@@ -127,6 +128,7 @@ const addBookIndb = [
         authors,
         publishers,
         book: req.body,
+        isEdit: false,
       });
     }
 
@@ -172,6 +174,7 @@ async function openEditPage(req, res) {
     authors,
     publishers,
     book,
+    isEdit: true,
   });
 }
 export { openAddBook, addBookIndb, showBookList, deleteBookById, openEditPage };

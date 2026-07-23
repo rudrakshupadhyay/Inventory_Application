@@ -11,7 +11,11 @@ categoryRouter.get("/", openCategoriesList);
 
 categoryRouter.get("/add", (req, res) => {
   const title = "ADD THE CATEGORY";
-  res.render("./categories/addCategory", { title, category: null });
+  res.render("./categories/addCategory", {
+    isEdit: false,
+    title,
+    category: null,
+  });
 });
 categoryRouter.post("/add", addCategoryIndb);
 categoryRouter.get("/:id/edit", openEditPageOfCategory);

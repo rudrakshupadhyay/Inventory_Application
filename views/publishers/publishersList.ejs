@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Publishers</title>
+    <link rel="stylesheet" href="bookListSyle.css">
+  </head>
+  <body>
+    <%- include("../portion/header.ejs") %>
+    <div class="addBookBar">
+        <a href="/publishers/add" class="addNewBook">+ Add Author</a>
+    </div>
+    <div class="mainData">
+      <table border="1" cellspacing="0" cellpadding="10">
+        <thead>
+          <th>S.No</th>
+          <th>Name</th>
+          <th>Country</th>
+          <th>website</th>
+        </thead>
+        <% publishers.forEach((publisher,index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= publisher.name %></td>
+                <td><%= publisher.country %></td>
+                <td><%= publisher.website %></td>
+                <td class="action"><a href="/publishers/<%= publisher.id %>/edit" class="editbtn">Edit</a></td>
+                <td class="action">
+                  <form action="/publishers/<%= publisher.id %>?_method=DELETE" method="post">
+                    <button type="submit" class="deletebtn">Delete</button>
+                  </form>
+                </td>
+            </tr>
+        <% }) %>
+      </table>
+    </div>
+  </body>
+</html>

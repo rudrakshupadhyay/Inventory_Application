@@ -35,3 +35,16 @@ export async function updateCategoryIndb(id, name, description) {
     [name, description, id],
   );
 }
+
+export async function isCategoryNameUnique(name) {
+  const { rows } = await pool.query(
+    "SELECT id FROM categories WHERE LOWER(name) = LOWER($1)",
+    [name]
+  );
+
+  if (rows.length > 0) {
+    throw new Error("Category name already exists.");
+  }
+
+  return true;
+}

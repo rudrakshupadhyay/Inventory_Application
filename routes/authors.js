@@ -10,7 +10,7 @@ const authorRouter = Router();
 authorRouter.get("/", openAuthorsList);
 authorRouter.get("/add", (req, res) => {
   const title = "ADD THE AUTHOR";
-  res.render("authors/addAuthors", { title, author: null });
+  res.render("authors/addAuthors", { isEdit: false, title, author: null });
 });
 authorRouter.delete("/:id", deleteAuthorById);
 authorRouter.post("/add", addAuthorsIndb);

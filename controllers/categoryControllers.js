@@ -4,6 +4,7 @@ import {
   updateCategoryIndb,
   deleteFromCategoriesdb,
   categoriesById,
+  isCategoryNameUnique,
 } from "../models/categoriesQueries.js";
 import { body, validationResult, matchedData } from "express-validator";
 
@@ -13,7 +14,8 @@ const validateCategory = [
     .notEmpty()
     .withMessage("Title is required.")
     .isLength({ min: 2, max: 150 })
-    .withMessage("Title must be between 2 and 150 characters."),
+    .withMessage("Title must be between 2 and 150 characters.")
+    .custom(isCategoryNameUnique),
 
   body("description")
     .optional({ checkFalsy: true })
@@ -31,6 +33,7 @@ export const addCategoryIndb = [
     if (!errors.isEmpty()) {
       return res.status(400).render("./categories/addCategory", {
         title,
+        isEdit: false,
         errors: errors.array(),
         category: req.body, // Optional: preserve entered values
       });
@@ -48,7 +51,7 @@ export const addCategoryIndb = [
 
 export async function openCategoriesList(req, res) {
   const categories = await getAllCategories();
-    res.render("categories/categoriesList", { categories });
+  res.render("categories/categoriesList", { categories });
 }
 
 export async function deleteCategoryById(req, res) {
@@ -60,8 +63,9 @@ export async function deleteCategoryById(req, res) {
 export async function openEditPageOfCategory(req, res) {
   const { id } = req.params;
   const category = await categoriesById(id);
-  const title = "EDIT THE BOOK";
+  const title = "EDIT THE BOOK"; 
   res.render("categories/addCategory", {
+    isEdit:true,
     title,
     category,
   });
