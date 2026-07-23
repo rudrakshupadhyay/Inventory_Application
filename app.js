@@ -5,7 +5,7 @@ import authorRouter from "./routes/authors.js";
 import bookRouter from "./routes/books.js";
 import categoryRouter from "./routes/categories.js";
 import publisherRouter from "./routes/publishers.js";
-
+import { openHomePage } from "./controllers/homeControllers.js";
 const app = express();
 
 app.set("views", path.join(import.meta.dirname, "views"));
@@ -16,9 +16,7 @@ app.use(express.static(assetPath));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
-app.get("/", (req, res) => {
-  res.render("home");
-});
+app.get("/", openHomePage);
 
 app.use("/authors", authorRouter);
 app.use("/books", bookRouter);

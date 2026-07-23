@@ -4,17 +4,54 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="/homeStyle.css">
+    <link rel="stylesheet" href="/homeStyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
   </head>
   <body>
     <%- include("./portion/header.ejs") %>
     <div class="homeContainer">
       <div class="stats">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div class="box">
+          <i class="fa-solid fa-book"></i>
+          <div class="boxName"><%= numBooks %> BOOKS</div>
+        </div>
+        <div class="box">
+          <i class="fa-solid fa-folder"></i>
+          <div class="boxName"> <%= numCategories %> CATEGORIES</div>
+        </div>
+        <div class="box">
+          <i class="fa-solid fa-user-pen"></i>
+          <div class="boxName"> <%= numAuthoes %> AUTHORS</div>
+        </div>
+        <div class="box">
+          <i class="fa-solid fa-building"></i>
+          <div class="boxName"><%= numPublisher %> PUBLISHERS</div>
+        </div>
       </div>
+      <section class="welcome-section">
+        <div class="welcome-text">
+          <h1>Welcome to ShelfSync 👋</h1>
+          <p>
+            Manage your books, authors, categories, and publishers from one
+            centralized dashboard.
+          </p>
+
+          <div class="welcome-buttons">
+            <a href="/books/add" class="btn-primary">+ Add Book</a>
+            <a href="/books" class="btn-secondary">View Books</a>
+          </div>
+        </div>
+
+        <div class="welcome-image">
+          <img
+            src="/images/book-illustration.svg"
+            alt="Library Illustration"
+          />
+        </div>
+      </section>
     </div>
   </body>
 </html>
