@@ -1,4 +1,10 @@
-import { insertIntoCategoryDB } from "../models/categoriesQueries.js";
+import {
+  insertIntoCategoryDB,
+  getAllCategories,
+  updateBookInDb,
+  deleteFromCategoriesdb,
+  categoriesById,
+} from "../models/categoriesQueries.js";
 import { body, validationResult, matchedData } from "express-validator";
 
 const validateBook = [
@@ -16,28 +22,47 @@ const validateBook = [
     .withMessage("Description cannot exceed 1000 characters."),
 ];
 
-function openAddCategories(req, res) {
-  res.render("./categories/addCategory");
-}
-
-const addCategoryIndb = [
+export const addCategoryIndb = [
   ...validateBook,
   async (req, res) => {
     const errors = validationResult(req);
-
+    const isEdit = Boolean(req.params.id);
+    const title = isEdit ? "EDIT THE category" : "ADD THE category";
     if (!errors.isEmpty()) {
-      return res.status(400).render("./books/addBooks", {
+      return res.status(400).render("./categories/addCategory", {
+        title,
         errors: errors.array(),
-        data: req.body, // Optional: preserve entered values
+        category: req.body, // Optional: preserve entered values
       });
     }
 
     const { name, description } = matchedData(req);
-
-    await insertIntoCategoryDB(name, description);
-
+    if (req.params.id) {
+      await updateBookInDb(req.params.id, name, description);
+    } else {
+      await insertIntoCategoryDB(name, description);
+    }
     res.redirect("/");
   },
 ];
 
-export { openAddCategories, addCategoryIndb };
+export async function openCategoriesList(req, res) {
+  const categories = await getAllCategories();
+    res.render("categories/categoriesList", { categories });
+}
+
+export async function deleteCategoryById(req, res) {
+  const { id } = req.params;
+  await deleteFromCategoriesdb(id);
+  res.redirect("/categories");
+}
+
+export async function openEditPageOfCategory(req, res) {
+  const { id } = req.params;
+  const category = await categoriesById(id);
+  const title = "EDIT THE BOOK";
+  res.render("categories/addCategory", {
+    title,
+    category,
+  });
+}

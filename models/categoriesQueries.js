@@ -13,7 +13,7 @@ export async function insertIntoCategoryDB(name, description) {
 }
 
 export async function deleteFromCategoriesdb(value) {
-  await pool.query("DELETE FROM categories WHERE id = $1",[value])
+  await pool.query("DELETE FROM categories WHERE id = $1", [value]);
 }
 
 export async function categoriesById(value) {
@@ -21,4 +21,17 @@ export async function categoriesById(value) {
     value,
   ]);
   return rows[0];
+}
+
+export async function updateBookInDb(id, name, description) {
+  await pool.query(
+    `
+    UPDATE categories
+    SET
+      name = $1,
+      description = $2
+    WHERE id = $3
+    `,
+    [name, description, id],
+  );
 }

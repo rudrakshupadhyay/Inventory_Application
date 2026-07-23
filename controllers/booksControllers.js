@@ -110,10 +110,6 @@ async function openAddBook(req, res) {
 }
 
 const addBookIndb = [
-  (req, res, next) => {
-    console.log(req.body);
-    next();
-  },
   ...validateBook,
   async (req, res) => {
     const errors = validationResult(req);
@@ -169,7 +165,6 @@ async function openEditPage(req, res) {
   const authors = await getAllAuthors();
   const publishers = await getAllpublishers();
   const book = await getBookByIdFromdb(id);
-  console.log(book);
   const title = "EDIT THE BOOK";
   res.render("books/addBooks", {
     title,

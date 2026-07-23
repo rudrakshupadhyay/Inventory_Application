@@ -74,8 +74,11 @@ a {
 }
 table {
   background-color: #ffffff;
+  border: none;
 }
-
+td,th{
+  border: 1px solid black;
+}
 .action {
   border: none;
 }
@@ -92,4 +95,9 @@ table {
   border: none;
   padding: 7px 10px;
   border-radius: 10px;
+}
+.mainData{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

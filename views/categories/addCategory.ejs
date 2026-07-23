@@ -8,17 +8,18 @@
 </head>
 <body>
     <%- include("../portion/header.ejs") %>
-    <h1 class="page-title">ADD THE CATEGORY</h1>
+    <h1 class="page-title"><%= title %></h1>
     <div class="container">
       <%- include("../portion/errors") %>
-      <form action="/categories/add" method="post" class="addBookForm">
+      <form action="<%= category ? `/categories/${category.id}/edit` : '/categories/add' %>" method="post" class="addBookForm">
         <div class="form-group">
           <label for="title">Name:</label>
           <input
             type="text"
             name="name"
             id="title"
-            placeholder="e.g., Rudraksh"
+            placeholder="e.g., Voltaire"
+            value="<%= category ? category.name : '' %>"
             required
           />
         </div>
@@ -30,7 +31,7 @@
             rows="4"
             cols="50"
             placeholder="Enter book description"
-          ></textarea>
+          ><%= category ? category.description : '' %></textarea>
         </div>
         <button type="submit" class="btnAddBook">Submit</button>
       </form>
