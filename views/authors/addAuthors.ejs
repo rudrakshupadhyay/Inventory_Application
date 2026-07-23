@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Authors</title>
+    <link rel="stylesheet" href="/addBooksStyle.css">
+</head>
+<body>
+    <%- include("../portion/header.ejs") %>
+    <h1 class="page-title"><%= title %></h1>
+    <div class="container">
+      <%- include("../portion/errors") %>
+      <form action="<%= author ? `/authors/${author.id}/edit` : '/authors/add' %>" method="post" class="addBookForm">
+        <div class="form-group">
+          <label for="title">First Name:</label>
+          <input
+            type="text"
+            name="first_name"
+            id="title"
+            placeholder="Enter the First Name"
+            value="<%= author ? author.first_name : '' %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name:</label>
+          <input
+            type="text"
+            name="last_name"
+            id="lname"
+            placeholder="Enter the Last Name"
+            value="<%= author ? author.last_name : '' %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">About:</label>
+          <textarea
+            id="description"
+            name="about"
+            rows="4"
+            cols="50"
+            placeholder="Enter book about"
+          ><%= author ? author.about : '' %></textarea>
+        </div>
+        <button type="submit" class="btnAddBook">Submit</button>
+      </form>
+    </div>
+
+</body>
+</html>

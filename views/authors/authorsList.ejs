@@ -3,29 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Category</title>
+    <title>Authors</title>
     <link rel="stylesheet" href="bookListSyle.css">
   </head>
   <body>
     <%- include("../portion/header.ejs") %>
     <div class="addBookBar">
-        <a href="/categories/add" class="addNewBook">+ Add Category</a>
+        <a href="/authors/add" class="addNewBook">+ Add Author</a>
     </div>
     <div class="mainData">
       <table border="1" cellspacing="0" cellpadding="10">
         <thead>
           <th>S.No</th>
           <th>Name</th>
-          <th>Description</th>
+          <th>About</th>
         </thead>
-        <% categories.forEach((category,index) => { %>
+        <% authors.forEach((author,index) => { %>
             <tr>
                 <td><%= index + 1 %></td>
-                <td><%= category.name %></td>
-                <td><%= category.description %></td>
-                <td class="action"><a href="/categories/<%= category.id %>/edit" class="editbtn">Edit</a></td>
+                <td><%= author.first_name %> <%= author.last_name %></td>
+                <td><%= author.about %></td>
+                <td class="action"><a href="/authors/<%= author.id %>/edit" class="editbtn">Edit</a></td>
                 <td class="action">
-                  <form action="/categories/<%= category.id %>?_method=DELETE" method="post">
+                  <form action="/authors/<%= author.id %>?_method=DELETE" method="post">
                     <button type="submit" class="deletebtn">Delete</button>
                   </form>
                 </td>

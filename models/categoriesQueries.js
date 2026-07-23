@@ -23,7 +23,7 @@ export async function categoriesById(value) {
   return rows[0];
 }
 
-export async function updateBookInDb(id, name, description) {
+export async function updateCategoryIndb(id, name, description) {
   await pool.query(
     `
     UPDATE categories

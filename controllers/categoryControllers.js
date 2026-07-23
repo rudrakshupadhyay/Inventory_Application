@@ -1,13 +1,13 @@
 import {
   insertIntoCategoryDB,
   getAllCategories,
-  updateBookInDb,
+  updateCategoryIndb,
   deleteFromCategoriesdb,
   categoriesById,
 } from "../models/categoriesQueries.js";
 import { body, validationResult, matchedData } from "express-validator";
 
-const validateBook = [
+const validateCategory = [
   body("name")
     .trim()
     .notEmpty()
@@ -23,7 +23,7 @@ const validateBook = [
 ];
 
 export const addCategoryIndb = [
-  ...validateBook,
+  ...validateCategory,
   async (req, res) => {
     const errors = validationResult(req);
     const isEdit = Boolean(req.params.id);
@@ -38,7 +38,7 @@ export const addCategoryIndb = [
 
     const { name, description } = matchedData(req);
     if (req.params.id) {
-      await updateBookInDb(req.params.id, name, description);
+      await updateCategoryIndb(req.params.id, name, description);
     } else {
       await insertIntoCategoryDB(name, description);
     }
